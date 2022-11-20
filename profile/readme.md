@@ -13,9 +13,11 @@
 - **u** = unsafe
 - **i** = private
 - **o** = protected
+- **r** = unsafe return value
 
-**Note on unsafe functions/variables:**<br>
-These must be made private unless exposing them is absolutely necessary.
+**u)** Unsafe functions/variables must be made private unless exposing them is absolutely necessary.<br>
+**r)** An exception to **u**. Only use when a function may return a value that needs to be checked, but is otherwise safe to call.
+
 
 ### Intention/Kind
 **Universal**
@@ -30,14 +32,15 @@ These must be made private unless exposing them is absolutely necessary.
 - **n** = number (see note below)
 - **x** = index
 
-```C++
-dtMeeting = tMeetingEnded - tMeetingStarted;
-```
-
 **Note**: Number is not to be confused with count.<br>
 Example: When counting frames, the total number of frames would be a count. e.g. `cfRendered`<br>
 To specify one of those frames we would use a number. e.g. `nfLastUpdate`<br>
 In a sense this is similar to index. However, indices are reserved for accessing containers.
+
+### Examples:
+```C++
+dtMeeting = tMeetingEnded - tMeetingStarted;
+```
 
 ## Braces
 Braces that declare a new scope must be on their own line. **Exception:** single-line inline functions.
@@ -82,13 +85,12 @@ const float someFloat
 ## Other
 
 ### Validity checks
-When checking for validity of passed-in values inside functions,
-use an unbraced if-statement with an indented return-statement on the next line,
-followed by an empty line, then followed by the remaining code (usually) without declaring an additional scope:
+When checking for validity of values, use an unbraced if-statement, an indented return-statement on the next line,
+followed by an empty line, then followed by the remaining code. (Usually) without declaring an additional scope:
 
 ```C++
 //Do this:
-int Example(bool desiredCondition)
+int rxExample(bool desiredCondition)
 {
     if (!desiredCondition)
         return -1;
@@ -99,7 +101,7 @@ int Example(bool desiredCondition)
 }
 
 //NOT this:
-int Example(bool desiredCondition)
+int rxExample(bool desiredCondition)
 {
     if (desiredCondition)
     {
